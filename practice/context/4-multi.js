@@ -36,6 +36,8 @@ function Greeting() {
   return (
     <p
       style={{ color: theme === "dark" ? "gray" : "green" }}
-    >{`${username}님 안녕하세요.`}</p>
+    >
+      {`${username}님 안녕하세요.`}
+    </p>
   );
 }
