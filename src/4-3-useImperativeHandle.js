@@ -1,6 +1,6 @@
-import React, { forwardRef, useState, useImperativeHandle, useRef } from 'react';
+import React, { forwardRef, useState, useImperativeHandle } from 'react';
 
-// 자식 컴포넌트 함수 사용... 썩 좋지는 않음...
+// 자식 컴포넌트사용... 썩 좋지는 않음...
 /* export default function App() {
   const profileRef = useRef();
   const onClick = () => {
@@ -11,8 +11,8 @@ import React, { forwardRef, useState, useImperativeHandle, useRef } from 'react'
   };
   return (
     <div>
-      <Profile ref={profileRef} />
-      <button onClick={onClick}>add age 5</button>
+      <ProFile ref={profileRef} />
+      <button onClicl={onClick}>add age 5</button>
     </div>
   );
 } */
