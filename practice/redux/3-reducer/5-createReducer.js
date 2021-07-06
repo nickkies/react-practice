@@ -23,7 +23,7 @@ const reducer = createReducer(INITIAL_STATE, {
     (state.todos = state.todos.filter(todo => todo.id !== action.id )),
 });
 
-function createReducer(initialState, handlerMap) {
+export function createReducer(initialState, handlerMap) {
   return function (state = initialState, action) {
     return produce(state, draft => {
       const handler = handlerMap[action.type];
