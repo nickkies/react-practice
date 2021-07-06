@@ -1,26 +1,41 @@
 import React from 'react';
-import { createStore, applyMiddleware } from 'redux';
+import produce from 'immer';
 
-const saveToLocalStorage = store => next => action => {
-  if ( action.meta?.localStorageKey) {
-    localStorage.setItem(action.meta?.localStorageKey, JSON.stringify(action));
-  }
-  return next(action);
+const prevState = {
+  user: {
+    name: 'nick',
+    kids: [
+      {
+        name: 'jin',
+        age: 3,
+      },
+      {
+        name: 'jun',
+        age: 5
+      }//,
+    ]//,
+  },
+  products: [],
 };
-
-const myReducer = (state = { name: 'nick' }, action) => {
-  console.log('myReducer');
-  if ( action.type === 'someAction' ) {
-    return { name : 'jessy' }
-  }
-  return state;
-};
-const store = createStore(myReducer, applyMiddleware(saveToLocalStorage));
-store.dispatch({ 
-  type: 'someAction', 
-  title: 'nick', 
-  meta: { localStorageKey: 'myKey' } 
+const nextState = produce(prevState, draft => {
+  draft.user.kids[0].age = 6;
 });
+console.log(
+  'prevState === nextState',
+  prevState === nextState
+);
+console.log(
+  'prevState.user.kids[0] === nextState.user.kids[0]',
+  prevState.user.kids[0] === nextState.user.kids[0]
+);
+console.log(
+  'prevState.user.kids[1] === nextState.user.kids[1]',
+  prevState.user.kids[1] === nextState.user.kids[1]
+);
+console.log(
+  'prevState.products === prevState.products',
+  prevState.products === nextState.products,
+)
 
 export default function App() {
   return (
