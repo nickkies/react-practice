@@ -1,14 +1,18 @@
-import React from 'react';
-import { createStore } from 'redux';
-import { Provider, useSelector, useDispatch } from 'react-redux';
+import React, { useContext, createContext, useReducer } from 'react';
+
+const AppContext = createContext({});
+const DispatchContext = createContext(() => {});
 
 export default function App() {
+  const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
   return (
     <div>
-        <Provider store={store}>
+      <AppContext.Provider value={state}>
+        <DispatchContext.Provider value={dispatch}>
           <User />
           <Product />
-        </Provider>
+        </DispatchContext.Provider>
+      </AppContext.Provider>
     </div>
   );
 }
@@ -17,7 +21,7 @@ const INITIAL_STATE = {
   user: { name: 'nick'},
   product: { name: 'iphone'},
 };
-function reducer(state = INITIAL_STATE, action) {
+function reducer(state, action) {
   switch ( action.type ) {
     case 'setUserName':
       return {
@@ -28,12 +32,11 @@ function reducer(state = INITIAL_STATE, action) {
       return state;
   }
 }
-const store = createStore(reducer);
 
 function User() {
   console.log('User render');
-  const user = useSelector(state => state.user);
-  const dispatch = useDispatch();
+  const { user } = useContext(AppContext);
+  const dispatch = useContext(DispatchContext);
   return (
     <div>
       <p>{`${user.name}님 안녕하세요`}</p>
@@ -48,6 +51,6 @@ function User() {
 
 function Product() {
   console.log('Product render');
-  const product = useSelector(state => state.product);
+  const { product } = useContext(AppContext);
   return <p>{`제품 이름: ${product.name}`}</p>
 }
