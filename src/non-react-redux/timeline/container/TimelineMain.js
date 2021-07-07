@@ -1,8 +1,8 @@
-import React, { useEffect, useReducer } from 'react';
-import store from '../../common/store';
+import React from 'react';
 import { getNextTimeline } from '../../common/mockData';
 import { addTimeline } from '../state';
 import TimelineList from '../component/TimelineList';
+import { useSelector, useDispatch } from 'react-redux';
 
 function TimelineMain() {
   const [, forceupdate] = useReducer(v => v + 1, 0);
@@ -19,10 +19,9 @@ function TimelineMain() {
   }, []);
   function onAdd() {
     const timeline = getNextTimeline();
-    store.dispatch(addTimeline(timeline));
+    dispatch(addTimeline(timeline));
   }
   console.log('TimelineMain render');
-  const timelines = store.getState().timeline.timelines;
   return (
     <div>
       <button onClick={onAdd}>타임라인 추가</button>
