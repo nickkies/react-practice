@@ -5,14 +5,26 @@ import FriendsList from '../component/FriendList';
 import NumberSelect from '../component/NumberSelect';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { MAX_AGE_LIMIT, MAX_SHOW_LIMIT } from '../common';
+import { getAgeLimit, getFriendsWithAgeLimit, getFriendWithAgeShowLimit, getShowLimit } from '../state/selector';
 
 export default function FriendsMain() {
+  // const ...
+  // const ...
+  // 이런식으로 사용해도 됨
+  // redux 값이 아니고 프롭으로 넘어오는 경우는 메모이제이션 x...
   const [
     ageLimit,
     showLimit,
     friendsWithAgeLimit,
     friendsWithAgeShowLimit,
-  ] = useSelector(state => {
+  ] = useSelector(
+    state => [
+      getAgeLimit(state),
+      getShowLimit(state),
+      getFriendsWithAgeLimit(state),
+      getFriendWithAgeShowLimit(state),
+    ], shallowEqual,)
+    /* state => {
     const { ageLimit, showLimit, friends } = state.friend;
     const friendsWithAgeLimit = friends.filter(friend => friend.age <= ageLimit);
     return [
@@ -21,14 +33,12 @@ export default function FriendsMain() {
       friendsWithAgeLimit, 
       friendsWithAgeLimit.slice(0, showLimit),
     ];
-  }, shallowEqual);
+  }, shallowEqual); */
   const dispatch = useDispatch();
   function onAdd() {
     const friend = getNextFriend();
     dispatch(addFriend(friend));
-    console.log(friend);
   }
-  console.log('FriendMain render');
   return (
     <div>
       <button onClick={onAdd}>친구 추가</button>

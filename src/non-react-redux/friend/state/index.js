@@ -1,5 +1,5 @@
-import { createReducer } from '../common/createReducer';
-import { MAX_AGE_LIMIT, MAX_SHOW_LIMIT } from './common'
+import { createReducer } from '../../common/createReducer';
+import { MAX_AGE_LIMIT, MAX_SHOW_LIMIT } from '../common'
 
 const ADD = 'friend/ADD';
 const REMOVE = 'friend/REMOVE';
