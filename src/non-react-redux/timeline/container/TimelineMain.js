@@ -5,18 +5,8 @@ import TimelineList from '../component/TimelineList';
 import { useSelector, useDispatch } from 'react-redux';
 
 function TimelineMain() {
-  const [, forceupdate] = useReducer(v => v + 1, 0);
-  useEffect(() => {
-    let prevTimelines = store.getState().timeline.timelines;
-    const unsubscribe = store.subscribe(() => {
-      const timelines = store.getState().timeline.timelines;
-      if ( prevTimelines !== timelines ) {
-        forceupdate()
-      }
-      prevTimelines = timelines;
-    });
-    return () => unsubscribe;
-  }, []);
+  const timelines = useSelector(state => state.timeline.timelines);
+  const dispatch = useDispatch();
   function onAdd() {
     const timeline = getNextTimeline();
     dispatch(addTimeline(timeline));

@@ -5,18 +5,8 @@ import FriendsList from '../component/FriendList';
 import { useDispatch, useSelector } from 'react-redux';
 
 function FriendsMain() {
-  const [, forceUpdate] = useReducer(v => v + 1, 0);
-  useEffect(() => {
-    let prevFriends = store.getState().friend.friends;
-    const unsubscribe = store.subscribe(() => {
-      const friends = store.getState().friend.friends;
-      if ( prevFriends !== friends ) {
-        forceUpdate()
-      }
-      prevFriends = friends;
-    });
-    return () => unsubscribe;
-  }, []);
+  const friends = useSelector(state => state.friend.friends);
+  const dispatch = useDispatch();
   function onAdd() {
     const friend = getNextFriend();
     dispatch(addFriend(friend));
