@@ -3,10 +3,18 @@ import { actions, types } from '../../timeline/state';
 import { callApiLike } from '../../common/api';
 
 export function* fetchData(action) {
-  yield put(actions.setLoading(true));
+  // yield put(actions.setLoading(true));
+  yield put(actions.setValue('isLoading', true));
   yield put(actions.addLike(action.timeline.id, 1));
-  yield call(callApiLike);
-  yield put(actions.setLoading(false));
+  yield put(actions.setValue('error', ''));
+  try {
+    yield call(callApiLike);
+  } catch(e) {
+    yield put(actions.setValue('error', e));
+    yield put(actions.addLike(action.timeline.id, -1));
+  }
+  // yield put(actions.setLoading(false));
+  yield put(actions.setValue('isLoading', false));
 }
 
 export default function* () {
