@@ -1,14 +1,12 @@
 import React from 'react';
-import app from './non-react-redux/hook.app';
-
-const fn = app;
-
-fn();
+import FriendMain from './non-react-redux/friend/container/FriendMain';
+import TimelineMain from './non-react-redux/timeline/container/TimelineMain';
 
 export default function App() {
   return (
     <div>
-        Hello there
+        <FriendMain />
+        <TimelineMain />
     </div>
   );
 }
