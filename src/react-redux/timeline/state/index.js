@@ -17,10 +17,7 @@ export const actions = {
   increaseNextPage: () => ({ type: types.INCREASE_NEXT_PAGE }),
   requestLike: timeline => ({ type: types.REQUEST_LIKE, timeline }),
   addLike: (timelineId, value) => ({ type: types.ADD_LIKE, timelineId, value }),
-  setLoading: isLoading => ({
-    type: types.SET_LOADING,
-    isLoading
-  }),
+  setLoading: isLoading => ({ type: types.SET_LOADING, isLoading }),
 };
 
 const INITIAL_STATE = { timelines: [], nextPage: 0, isLoading: false, };
@@ -47,5 +44,6 @@ const reducer = createReducer(INITIAL_STATE, {
       timeline.likes += action.value;
     }
   },
+  [types.SET_LOADING]: (state, action) => state.isLoading = action.isLoading,
 });
 export default reducer;
