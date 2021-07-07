@@ -1,6 +1,6 @@
 import React from 'react';
 import { getNextTimeline } from '../../common/mockData';
-import { addTimeline } from '../state';
+import { actions } from '../state';
 import TimelineList from '../component/TimelineList';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -9,7 +9,7 @@ function TimelineMain() {
   const dispatch = useDispatch();
   function onAdd() {
     const timeline = getNextTimeline();
-    dispatch(addTimeline(timeline));
+    dispatch(actions.addTimeline(timeline));
   }
   console.log('TimelineMain render');
   return (
